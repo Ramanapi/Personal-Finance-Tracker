@@ -6,10 +6,12 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb+srv://raman:1234@cluster0.0mvhw.mongodb.net/personal-finance")
+
+mongoose.connect("mongodb+srv://raman:1234@cluster0.0mvhw.mongodb.net/personal-finance") //Replace If you are using Atlas API
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Failed to connect to MongoDB", err));
 
+  //Models
 const transactionSchema = new mongoose.Schema({
   amount: Number,
   date: Date,
@@ -18,6 +20,7 @@ const transactionSchema = new mongoose.Schema({
 
 const Transaction = mongoose.model("Transaction", transactionSchema);
 
+// CRUD Operations
 app.get("/api/transactions", async (req, res) => {
   const transactions = await Transaction.find();
   res.json(transactions);
